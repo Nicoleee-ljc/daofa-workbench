@@ -1,0 +1,24 @@
+{
+  "name": "道德与法治工作台",
+  "short_name": "道法工作台",
+  "description": "小学道德与法治教师教学工作台",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF8F5",
+  "theme_color": "#C98B8B",
+  "icons": [
+    {
+      "src": "icons/icon-180.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

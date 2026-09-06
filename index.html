@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#C98B8B" />
+<title>道德与法治工作台</title>
+
+<!-- iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="道法工作台" />
+<link rel="apple-touch-icon" href="icons/icon-180.jpg" />
+<link rel="manifest" href="manifest.webmanifest" />
+
+<link rel="stylesheet" href="css/styles.css?v=5" />
+</head>
+<body>
+
+<div class="app">
+  <!-- 顶部状态栏 -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="topbar-seal">道</span>
+      <span class="topbar-title">道德与法治工作台</span>
+    </div>
+    <div class="topbar-clock">
+      <span id="clock">--:--</span>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="main">
+    <!-- 授课进度模块 -->
+    <section class="module active" id="module-progress">
+      <header class="module-header">
+        <div>
+          <h2>授课进度</h2>
+          <p class="subtitle" id="date-line">----年--月--日</p>
+        </div>
+      </header>
+
+      <!-- 周次与假期横幅 -->
+      <div class="week-banner" id="week-banner"></div>
+
+      <div class="quick-actions">
+        <button class="chip-btn" id="btn-edit-schedule">✏️ 编辑课表</button>
+        <button class="chip-btn" id="btn-edit-plan">📋 教学计划</button>
+      </div>
+
+      <!-- 今日提醒条 -->
+      <div class="today-reminder" id="today-reminder">
+        <div class="reminder-loading">正在加载今日课表…</div>
+      </div>
+
+      <!-- 班级卡片网格 -->
+      <div class="class-grid" id="class-grid"></div>
+    </section>
+
+    <!-- 资料库模块 -->
+    <section class="module" id="module-resources">
+      <header class="module-header">
+        <div>
+          <h2>资料库</h2>
+          <p class="subtitle">按年级与类型管理资源</p>
+        </div>
+      </header>
+
+      <div class="tabs" id="resource-grade-tabs">
+        <button class="tab active" data-grade="三年级">三年级</button>
+        <button class="tab" data-grade="五年级">五年级</button>
+      </div>
+
+      <div class="tabs sub-tabs" id="resource-type-tabs">
+        <button class="tab active" data-type="教案">📖 教案</button>
+        <button class="tab" data-type="课件">🎬 课件</button>
+        <button class="tab" data-type="资料">📎 资料</button>
+      </div>
+
+      <div class="resource-columns" id="resource-columns">
+        <div class="res-col active" data-type="教案">
+          <div class="upload-zone" data-type="教案">
+            <span>＋ 上传教案</span>
+          </div>
+          <ul class="file-list" data-type="教案"></ul>
+        </div>
+        <div class="res-col" data-type="课件">
+          <div class="upload-zone" data-type="课件">
+            <span>＋ 上传课件</span>
+          </div>
+          <ul class="file-list" data-type="课件"></ul>
+        </div>
+        <div class="res-col" data-type="资料">
+          <div class="upload-zone" data-type="资料">
+            <span>＋ 上传资料</span>
+          </div>
+          <ul class="file-list" data-type="资料"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 学习网站模块 -->
+    <section class="module" id="module-links">
+      <header class="module-header">
+        <div>
+          <h2>学习网站</h2>
+          <p class="subtitle">一键直达教育资源平台</p>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btn-add-link">＋ 添加</button>
+      </header>
+      <div class="link-grid" id="link-grid"></div>
+    </section>
+
+    <!-- 论文阅读模块 -->
+    <section class="module" id="module-papers">
+      <header class="module-header">
+        <div>
+          <h2>论文阅读</h2>
+          <p class="subtitle">高亮划线 · 记录感受</p>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btn-add-paper">＋ 上传</button>
+      </header>
+
+      <div class="papers-layout" id="papers-layout">
+        <!-- 列表视图 -->
+        <div class="paper-list-pane" id="paper-list-pane">
+          <div class="paper-list" id="paper-list"></div>
+        </div>
+        <!-- 阅读器视图 -->
+        <div class="paper-reader-pane" id="paper-reader-pane" hidden>
+          <button class="reader-back" id="reader-back">← 返回列表</button>
+          <div class="paper-reader" id="paper-reader">
+            <div class="reader-empty">
+              <div class="empty-ico">📄</div>
+              <p>从列表选择一篇论文开始阅读</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部 Tab Bar -->
+  <nav class="tabbar">
+    <button class="tabbar-item active" data-module="progress">
+      <span class="tabbar-ico">📚</span>
+      <span class="tabbar-label">进度</span>
+    </button>
+    <button class="tabbar-item" data-module="resources">
+      <span class="tabbar-ico">🗂️</span>
+      <span class="tabbar-label">资料</span>
+    </button>
+    <button class="tabbar-item" data-module="links">
+      <span class="tabbar-ico">🔗</span>
+      <span class="tabbar-label">网站</span>
+    </button>
+    <button class="tabbar-item" data-module="papers">
+      <span class="tabbar-ico">📝</span>
+      <span class="tabbar-label">论文</span>
+    </button>
+  </nav>
+</div>
+
+<!-- 通用模态框（底部抽屉） -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3 id="modal-title">标题</h3>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- 隐藏的文件输入 -->
+<input type="file" id="file-input-res" hidden multiple />
+<input type="file" id="file-input-paper" hidden accept=".txt,.md,.html,.htm" />
+
+<script src="js/data.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
+</body>
+</html>
